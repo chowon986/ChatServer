@@ -1,40 +1,12 @@
 ﻿#include <iostream>
 #include <WinSock2.h>
 #include <WS2tcpip.h>
-#include <map>
 #include <string>
 
 using namespace std;
 
 // Ws2_32.lib 라는 라이브러리 파일을 포함해라
 #pragma comment(lib, "Ws2_32.lib")
-
-// UTF8 -> UNICODE(widechar) -> ANSI
-void UTF8to_ANSI(char buffer[], int _byteSize)
-{
-	// 문자열 크기 측정
-	int wideBufferSize = MultiByteToWideChar(CP_UTF8, 0, buffer, _byteSize, nullptr, 0);
-
-	// 크기만큼의 유니코드형 문자열 동적 할당
-	wchar_t* wideBuffer = new wchar_t[wideBufferSize + 1];
-
-	// UTF8 -> UNICODE
-	MultiByteToWideChar(CP_UTF8, 0, buffer, _byteSize, wideBuffer, wideBufferSize);
-	wideBuffer[wideBufferSize] = L'\0';
-
-	// WIDE CHAR를 CHAR로 변환
-	// 유니코드로 바꾼 문자열의 크기 측정
-	int ansiLength = WideCharToMultiByte(CP_ACP, 0, wideBuffer, -1, NULL, 0, NULL, NULL);
-
-	// buffer에 변환해서 적용(UNICODE -> ANSI)
-	WideCharToMultiByte(CP_ACP, 0, wideBuffer, -1, buffer, ansiLength, NULL, NULL);
-
-	// NULL 문자
-	buffer[ansiLength] = L'\0';
-
-	wideBuffer = nullptr;
-	delete[] wideBuffer;
-}
 
 int main()
 {
