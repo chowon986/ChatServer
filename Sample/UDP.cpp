@@ -138,7 +138,7 @@ int main()
 	// 여기 소켓 통신이 들어갈거임
 	SOCKET mySocket = socket(AF_INET, SOCK_DGRAM, 0);
 
-	if (mySocket == SOCKET_ERROR)
+	if (mySocket == INVALID_SOCKET)
 	{
 		cout << "socket 생성 에러" << '\n';
 		WSACleanup();
