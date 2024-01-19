@@ -64,7 +64,7 @@ int main()
 		}
 
 		// msg.c_str() : 문자열의 첫 위치
-		send(mySocket, msg.c_str(), msg.length(), 0);
+		send(mySocket, msg.c_str(), msg.length() + 1, 0);
 
 		char buffer[512] = "";
 		int recvBytes = recv(mySocket, buffer, sizeof(buffer), 0);

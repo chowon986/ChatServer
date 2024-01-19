@@ -8,10 +8,56 @@
 
 using namespace std;
 
+struct ClientInfo
+{
+	WSAOVERLAPPED overlapped;
+
+	SOCKET socket;
+	char buffer[512];
+	WSABUF dataBuf;
+	DWORD recvByte = 0;
+	DWORD flags = 0;
+};
+
+void CALLBACK RecvCallBackFunc(DWORD _error, DWORD _recvLen, LPWSAOVERLAPPED _overlapped, DWORD _inflags);
+
+void CALLBACK SendCallBackFunc(DWORD _error, DWORD _recvLen, LPWSAOVERLAPPED _overlapped, DWORD _inflags)
+{
+	ClientInfo* info = (ClientInfo*)_overlapped;
+
+	int result = WSARecv(info->socket, &info->dataBuf, 1, &info->recvByte, &info->flags, &info->overlapped, RecvCallBackFunc);
+
+	if (result == SOCKET_ERROR)
+	{
+		if (WSAGetLastError() == SOCKET_ERROR )
+		{
+			cout << "비동처리 정상 완료" << endl;
+		}
+	}
+}
+
 void CALLBACK RecvCallBackFunc(DWORD _error, DWORD _recvLen, LPWSAOVERLAPPED _overlapped, DWORD _inflags)
 {
 	// 비동기하다가 callback이 호출된다는거임
+	ClientInfo* info = (ClientInfo*)_overlapped;
+
 	cout << "받았다" << endl;
+
+	if (_recvLen == 0) // 클라이언트 연결이 종료되었다면
+	{
+		cout << "클라이언트 연결 종료" << endl;
+		closesocket(info->socket);
+
+		delete info;
+
+		return;
+	}
+
+	if (_error == 0)
+	{
+		cout << "수신 내용 : " << info->buffer << endl;
+		WSASend(info->socket, &info->dataBuf, 1, &info->recvByte, 0, &info->overlapped, SendCallBackFunc);
+	}
 }
 
 int main()
@@ -93,27 +139,25 @@ int main()
 		cout << "클라 연결 성공" << endl;
 
 		// 수신 대기
-		char buffer[512] = ""; // 수신 받을 버퍼 생성
+
+		ClientInfo* info = new ClientInfo();
+		info->socket = clientSocket;
+		info->dataBuf.buf = info->buffer;
+		info->dataBuf.len = 512;
+		info->flags = 0;
+		info->recvByte = 0;
+
 
 		// WSARecv의 두 번째 인자의 자료형이 LPWSABUF임
 		// LPWSABUF 안에 버퍼랑 길이 넣어주고 해당 값을 두 번째 인자에 넣어줌
-		WSABUF dataBuf;
-		dataBuf.buf = buffer;
-		dataBuf.len = sizeof(buffer);
-
-		DWORD recvByte = 0;
-		DWORD flags = 0;
-		OVERLAPPED overlapped;
-
-
-		result = WSARecv(clientSocket, &dataBuf, 1, &recvByte, &flags, &overlapped, RecvCallBackFunc);
+		result = WSARecv(info->socket, &info->dataBuf, 1, &info->recvByte, &info->flags, &info->overlapped, RecvCallBackFunc);
 
 		if (result == SOCKET_ERROR)
 		{
 			// WSA_IO_PENDING : 비동기 처리가 되어서 나옴
 			if (WSAGetLastError() == WSA_IO_PENDING)
 			{
-				cout << "비동기 처리 완료" << endl;
+				cout << "수신 성공" << endl;
 			}
 			else
 			{
