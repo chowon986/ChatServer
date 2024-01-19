@@ -62,7 +62,7 @@ int main()
 	// accept
 	cout << "연결 대기 시작" << '\n';
 
-	auto clientSocket = accept(mySocket, nullptr, nullptr); // 클라 연결 됐어
+	auto clientSocket = accept(mySocket, nullptr, nullptr); // 클라 연결 됐어 -> accept를 통해 새로운 socket을 만듦 -> 전달해야하는 애
 
 	if (clientSocket == INVALID_SOCKET)
 	{
