@@ -217,7 +217,7 @@ int main()
 		for (auto i : userList)
 		{
 			// map에 있는 모든 사람에게 전송
-			sendto(mySocket, buffer, strlen(buffer) + 1, 0, (struct sockaddr*)&i.second, sizeof(i.second)); // sendto는 바인딩 하고 해야 함 (클라)
+			sendto(mySocket, buffer, int(strlen(buffer) + 1), 0, (struct sockaddr*)&i.second, sizeof(i.second)); // sendto는 바인딩 하고 해야 함 (클라)
 		}
 
 		// 보내고 나서 로그로 보낼 때 문제가 생기는 거니까 보내고 나서 수정해야 함
