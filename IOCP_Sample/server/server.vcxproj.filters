@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{beaec875-b8cc-470a-b76e-1a25a2a08a45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="모듈 파일">
+      <UniqueIdentifier>{a0f987f7-1f51-4a37-b575-acbe68494e64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="모듈 파일\session">
+      <UniqueIdentifier>{1fb07f3f-879c-42b2-ad3d-b167f4e6a217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="모듈 파일\packet">
+      <UniqueIdentifier>{d3aefb46-9d6c-4eb1-b1d2-bd1155708c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="모듈 파일\server">
+      <UniqueIdentifier>{cb016d5e-4291-49a9-89eb-5e620654dc2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="모듈 파일\buffer">
+      <UniqueIdentifier>{64b7e00a-ec28-4557-8b58-ec22f36cc44a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="tcp_session.cpp">
+      <Filter>모듈 파일\session</Filter>
+    </ClCompile>
+    <ClCompile Include="Iocp_server.cpp">
+      <Filter>모듈 파일\server</Filter>
+    </ClCompile>
+    <ClCompile Include="packet_handler.cpp">
+      <Filter>모듈 파일\packet</Filter>
+    </ClCompile>
+    <ClCompile Include="stream_buffer.cpp">
+      <Filter>모듈 파일\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="chat_server.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tcp_session.h">
+      <Filter>모듈 파일\session</Filter>
+    </ClInclude>
+    <ClInclude Include="Iocp_server.h">
+      <Filter>모듈 파일\server</Filter>
+    </ClInclude>
+    <ClInclude Include="packet_handler.h">
+      <Filter>모듈 파일\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="stream_buffer.h">
+      <Filter>모듈 파일\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="server_defines.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="chat_server.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="chat_session.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

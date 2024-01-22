@@ -1,61 +1,16 @@
 ﻿#include <iostream>
 #include <random>
 #include <string>
+#include "Monster.h"
+#include "Monster4.h"
+#include "김영석.h"
+
 using namespace std;
 
 /*
 	상태패턴
 
 */
-
-class Monster
-{
-public:
-	string name;
-	int m_HP;
-	int m_Atk;
-
-	Monster()
-	{
-		m_HP = 100;
-		m_Atk = 5;
-	}
-
-	// int input = 0는 디폴트매개변수
-	virtual void Attck(int* _hp, int* _atk, int input = 0)
-	{
-		*_hp -= m_Atk;
-	}
-
-	virtual void Heal(int input = 0)
-	{
-		m_HP += m_Atk;
-	}
-};
-
-class 김영석 : public Monster
-{
-public:
-	김영석()
-	{
-		name = "김영석";
-		m_HP = 50;
-		m_Atk = 2;
-	}
-
-	// int input = 0는 디폴트매개변수
-	virtual void Attck(int* _hp, int* _atk, int input = 0)
-	{
-		cout << m_Atk << "만큼의 피해를 주었다." << endl;
-		*_hp -= m_Atk;
-	}
-
-	virtual void Heal(int* _hp, int* _atk, int input = 0)
-	{
-		cout << name << "은 " << m_Atk << "만큼 회복했다!" << endl;
-		m_HP += m_Atk;
-	}
-};
 
 int main()
 {
@@ -123,5 +78,5 @@ int main()
 		system("cls");
 	}
 
-
+	Monster4* Mon = new Monster4();
 }
